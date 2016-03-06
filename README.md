@@ -7,7 +7,8 @@ JavaScript, AngularJS, Angular Material, Angular Charts, CSS
 
 # User Flow
 
-http://g.recordit.co/h3tpibVyZ1.gif
+[alt tag](http://g.recordit.co/h3tpibVyZ1.gif)
+
 
 User selects a risk profile - a number from 1 - 10. 
 User then inputs details regarding his/her current portfolio standings. This is a breakdown of 5 asset categories: 
