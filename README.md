@@ -7,7 +7,7 @@ JavaScript, AngularJS, Angular Material, Angular Charts, CSS
 
 # User Flow
 
-[alt tag](http://g.recordit.co/h3tpibVyZ1.gif)
+![Alt tag](http://g.recordit.co/h3tpibVyZ1.gif)
 
 
 User selects a risk profile - a number from 1 - 10. 
