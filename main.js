@@ -3,40 +3,55 @@ angular.module('app.main', [])
 
 .controller('MainController', function ($scope, $location) {
 
-  //Here I will include my controller logic
-
-  //In my assetEval, I will store all possible combinations of assets associated with a certain risk
+  //assetEval is an array that will store all possible combinations of risk and asset allocations. 
+  //The view of this array is currently a hidden tabular view. Please refer to index.html for more details. 
   $scope.assetEval = [];
+
+  //Possibilities is an object of the following format: 
+
+  /*
+  $scope.possibilities = {
+    '1': [10, 14, 155, 12, 14], 
+    '2': [50, 23, 11, 12, 19], 
+    '3': [50, 23, 11, 12, 19], 
+    '4': [50, 23, 11, 12, 19], 
+    '5': [50, 23, 11, 12, 19]
+  }
+  */
   $scope.possibilities = {};
+
+  //the following variable "tabular" indicates whether or not to display the table of possible risk profiles
   $scope.tabular = false;
+
+  //the following variable "riskEntered" indicates what stage of user-flow a user is in (entered risk)
   $scope.riskEntered = false;
+
+  //the following variable "submissionComplete" indicates that the application is now ready to render the chart
   $scope.submissionComplete = false;
 
-  $scope.user = {}
+  //the user object will include portfolio details by key "asset" and value "number" pairs. 
+  $scope.user = {};
+
+  //the userBreakdown object will include the same portfolio details, except in percentage form. 
   $scope.userBreakdown = {};
+
+  //Insights will be an array of strings pertaining to recommendations for each asset. 
   $scope.insights = [];
-  //evaluateRisk function will do the following: 
 
-  //It will loop from 1 - 10
-  //In each iteration
-    //Create an object that stores the following keys value pairs
-      //bonds: num%
-      //stocks: num%
-      //etfs: num%
-      //realEstate: num%
-      //cash: num%
-
+  //$scope.showTable will toggle the tabular view. 
   $scope.showTable = function() {
     $scope.tabular = true;
     console.log("this is the rating", $scope.rating1);
-  }
+  };
 
+  //$scope.showResults toggles the chart view and calls drawInsights function to render recommendations
   $scope.showResults = function() {
     $scope.submissionComplete = true;
     console.log("here is the user", $scope.user);
     $scope.drawInsights();
-  }
+  };
 
+  //Calculates actual percentages and compares them to expected percentages based on risk profile. 
   $scope.drawInsights = function() {
     var totalAmount = 0;
     for (var key in $scope.user) {
@@ -86,16 +101,16 @@ angular.module('app.main', [])
       var diff = $scope.data[4] - $scope.userBreakdown.cash;
       $scope.insights.push("Increase your cash by " + diff + "%.");
     }
+  };
 
-  }
-
+  //hideTable will be called on click of a button to hide the table - not currently being used. 
   $scope.hideTable = function() {
     $scope.tabular = false;
-  }
+  };
   
-
+  //EvaluateRisk is a function called to generate the tabular view of all risk/asset possibilities.
+  //Currently not being rendered
   $scope.evaluateRisk = function() {
-
     for (var i = 1; i<=10; i++) {
       var possibility = {};
       //call populate function to populate possiblity
@@ -105,9 +120,9 @@ angular.module('app.main', [])
       //push possibility to assetEval array
       $scope.assetEval.push(possibility);
     }
-    console.log($scope.possibilities);
   }
 
+  //populates the $scope.possibilities array
   $scope.populate = function(object, risk, chart) {
     if (chart) {
       if (risk === 1) {
@@ -117,219 +132,163 @@ angular.module('app.main', [])
       object["1"].push(0);
       object["1"].push(0);
       object["1"].push(90);
-    } else if (risk === 2) {
-      object["2"] = [];
-      object["2"].push(10);
-      object["2"].push(10);
-      object["2"].push(0);
-      object["2"].push(0);
-      object["2"].push(80);
-    } else if (risk === 3) {
-      object["3"] = [];
-      object["3"].push(10);
-      object["3"].push(10);
-      object["3"].push(10);
-      object["3"].push(0);
-      object["3"].push(70);
-    } else if (risk === 4) {
-      object["4"] = [];
-      object["4"].push(20);
-      object["4"].push(10);
-      object["4"].push(10);
-      object["4"].push(0);
-      object["4"].push(60);
-    } else if (risk === 5) {
-      object["5"] = [];
-      object["5"].push(15);
-      object["5"].push(15);
-      object["5"].push(10);
-      object["5"].push(10);
-      object["5"].push(50);
-    } else if (risk === 6) {
-      object["6"] = [];
-      object["6"].push(15);
-      object["6"].push(15);
-      object["6"].push(15);
-      object["6"].push(15);
-      object["6"].push(40);
-    } else if (risk === 7) {
-      object["7"] = [];
-      object["7"].push(10);
-      object["7"].push(20);
-      object["7"].push(20);
-      object["7"].push(20);
-      object["7"].push(30);
-    } else if (risk === 8) {
-      object["8"] = [];
-      object["8"].push(5);
-      object["8"].push(30);
-      object["8"].push(10);
-      object["8"].push(30);
-      object["8"].push(20);
-    } else if (risk === 9) {
-      object["9"] = [];
-      object["9"].push(0);
-      object["9"].push(40);
-      object["9"].push(5);
-      object["9"].push(35);
-      object["9"].push(20);
-    } else if (risk === 10) {
-      object["10"] = [];
-      object["10"].push(5);
-      object["10"].push(40);
-      object["10"].push(5);
-      object["10"].push(40);
-      object["10"].push(10);
+      } else if (risk === 2) {
+        object["2"] = [];
+        object["2"].push(10);
+        object["2"].push(10);
+        object["2"].push(0);
+        object["2"].push(0);
+        object["2"].push(80);
+      } else if (risk === 3) {
+        object["3"] = [];
+        object["3"].push(10);
+        object["3"].push(10);
+        object["3"].push(10);
+        object["3"].push(0);
+        object["3"].push(70);
+      } else if (risk === 4) {
+        object["4"] = [];
+        object["4"].push(20);
+        object["4"].push(10);
+        object["4"].push(10);
+        object["4"].push(0);
+        object["4"].push(60);
+      } else if (risk === 5) {
+        object["5"] = [];
+        object["5"].push(15);
+        object["5"].push(15);
+        object["5"].push(10);
+        object["5"].push(10);
+        object["5"].push(50);
+      } else if (risk === 6) {
+        object["6"] = [];
+        object["6"].push(15);
+        object["6"].push(15);
+        object["6"].push(15);
+        object["6"].push(15);
+        object["6"].push(40);
+      } else if (risk === 7) {
+        object["7"] = [];
+        object["7"].push(10);
+        object["7"].push(20);
+        object["7"].push(20);
+        object["7"].push(20);
+        object["7"].push(30);
+      } else if (risk === 8) {
+        object["8"] = [];
+        object["8"].push(5);
+        object["8"].push(30);
+        object["8"].push(10);
+        object["8"].push(30);
+        object["8"].push(20);
+      } else if (risk === 9) {
+        object["9"] = [];
+        object["9"].push(0);
+        object["9"].push(40);
+        object["9"].push(5);
+        object["9"].push(35);
+        object["9"].push(20);
+      } else if (risk === 10) {
+        object["10"] = [];
+        object["10"].push(5);
+        object["10"].push(40);
+        object["10"].push(5);
+        object["10"].push(40);
+        object["10"].push(10);
+      }
+    } else {
+      if (risk === 1) {
+        object.risk = 1;
+        object.bonds = 10;
+        object.stocks = 0; 
+        object.etfs = 0;
+        object.realEstate = 0;
+        object.cash = 90;
+      } else if (risk === 2) {
+        object.risk = 2;
+        object.bonds = 10;
+        object.stocks = 10; 
+        object.etfs = 0;
+        object.realEstate = 0;
+        object.cash = 80;
+      } else if (risk === 3) {
+         object.risk = 3;
+        object.bonds = 10;
+        object.stocks = 10; 
+        object.etfs = 10;
+        object.realEstate = 0;
+        object.cash = 70;
+      } else if (risk === 4) {
+         object.risk = 4;
+        object.bonds = 20;
+        object.stocks = 10; 
+        object.etfs = 10;
+        object.realEstate = 0;
+        object.cash = 60;
+      } else if (risk === 5) {
+         object.risk = 5;
+        object.bonds = 15;
+        object.stocks = 15; 
+        object.etfs = 10;
+        object.realEstate = 10;
+        object.cash = 50;
+      } else if (risk === 6) {
+        object.risk = 6;
+        object.bonds = 15;
+        object.stocks = 15; 
+        object.etfs = 15;
+        object.realEstate = 15;
+        object.cash = 40;
+      } else if (risk === 7) {
+         object.risk = 7;
+        object.bonds = 10;
+        object.stocks = 20; 
+        object.etfs = 20;
+        object.realEstate = 20;
+        object.cash = 30;
+      } else if (risk === 8) {
+        object.risk = 8;
+        object.bonds = 5;
+        object.stocks = 30; 
+        object.etfs = 10;
+        object.realEstate = 30;
+        object.cash = 25;
+      } else if (risk === 9) {
+        object.risk = 9;
+        object.bonds = 0;
+        object.stocks = 40; 
+        object.etfs = 5;
+        object.realEstate = 35;
+        object.cash = 20;
+      } else if (risk === 10) {
+        object.risk = 10;
+        object.bonds = 5;
+        object.stocks = 40; 
+        object.etfs = 5;
+        object.realEstate = 40;
+        object.cash = 10;
+      }
     }
-  } else {
-    if (risk === 1) {
-      object.risk = 1;
-      object.bonds = 10;
-      object.stocks = 0; 
-      object.etfs = 0;
-      object.realEstate = 0;
-      object.cash = 90;
-    } else if (risk === 2) {
-      object.risk = 2;
-      object.bonds = 10;
-      object.stocks = 10; 
-      object.etfs = 0;
-      object.realEstate = 0;
-      object.cash = 80;
-    } else if (risk === 3) {
-       object.risk = 3;
-      object.bonds = 10;
-      object.stocks = 10; 
-      object.etfs = 10;
-      object.realEstate = 0;
-      object.cash = 70;
-    } else if (risk === 4) {
-       object.risk = 4;
-      object.bonds = 20;
-      object.stocks = 10; 
-      object.etfs = 10;
-      object.realEstate = 0;
-      object.cash = 60;
-    } else if (risk === 5) {
-       object.risk = 5;
-      object.bonds = 15;
-      object.stocks = 15; 
-      object.etfs = 10;
-      object.realEstate = 10;
-      object.cash = 50;
-    } else if (risk === 6) {
-      object.risk = 6;
-      object.bonds = 15;
-      object.stocks = 15; 
-      object.etfs = 15;
-      object.realEstate = 15;
-      object.cash = 40;
-    } else if (risk === 7) {
-       object.risk = 7;
-      object.bonds = 10;
-      object.stocks = 20; 
-      object.etfs = 20;
-      object.realEstate = 20;
-      object.cash = 30;
-    } else if (risk === 8) {
-      object.risk = 8;
-      object.bonds = 5;
-      object.stocks = 30; 
-      object.etfs = 10;
-      object.realEstate = 30;
-      object.cash = 25;
-    } else if (risk === 9) {
-      object.risk = 9;
-      object.bonds = 0;
-      object.stocks = 40; 
-      object.etfs = 5;
-      object.realEstate = 35;
-      object.cash = 20;
-    } else if (risk === 10) {
-      object.risk = 10;
-      object.bonds = 5;
-      object.stocks = 40; 
-      object.etfs = 5;
-      object.realEstate = 40;
-      object.cash = 10;
-    }
-  }
-  return object;
+    return object;
     //end of this function, i have an object with all appropriate fields populated
   }
 
+  //Upon load of page, will call evaluateRisk function
   $scope.evaluateRisk();
+
+  //$scope.assets will populate the labels associated with the doughnut chart. 
   $scope.assets = ["Bonds", "Stocks", "ETFs", "Real Estate", "Cash"];
+
+  //Default population of data for doughnut chart
   $scope.data = $scope.possibilities[1];
+
+  //Default status for slider - starts at 0.
   $scope.rating = 0;
+
+  //Function that will be called whenever the slider is moved, in order to update data associated with doughnut chart. 
   $scope.moveChart = function() {
     $scope.data = $scope.possibilities[$scope.rating];
     $scope.riskEntered = true;
   }
-  
-
-  //At this point, my array will be populated with 10 objects
-  //these objects will ng - repeat on my index view
-
-  /*
-
-  LOw risk: 90% cash, 10% bonds, everything else is 0;
-  High risk: 90% stocks, 10% real estate, everything else is 0;
-
-
-
-  */
 
 });
-
-//This will represent the controller for my index page that will handle my logic
-
-//Investment account, see how your assets are allocated
-
-//Donut Chart
-
-//5 categories
-
-//Increase the risk from 4 - 7%
-  //Asset allocation changes
-
-//less risky to more risky allocation 
-
-//Table
-  //6 columns
-  //1. Risk Level: 1 - 10
-  //2. Bonds
-  //3. Stocks
-  //4. ETFs
-  //5. Real Estate
-  //6. Cash
-
-//Data Table
-
-// kshah@mybrightplan.com
-
-// Finish it
-//How much more time you took
-//Note of the NDA by email 
-//Sign it, followup call over the weekend - noon tomorrow or Sunday
-//Go over the code you have written
-
-//React - how would you change it 
-//That would be my coding task
-
-//
-
-//Captures ten rows for this structure
-
-//If risk is 1 - minimum risk, on cash
-//If risk is 10 - maximize risk, on stocks
-
-//Chart
-
-//Slider at the bottom 
-
-//If you move the slider, there will be a reallocation
-//User, you control the risk
-  //Changes on teh donut chart 
-
-//
