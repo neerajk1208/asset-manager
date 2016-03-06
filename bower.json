@@ -1,0 +1,14 @@
+{
+  "name": "risk-profile",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~1.0.3",
+    "angular-mocks": "~1.4.9",
+    "angular-chart.js": "~0.8.8",
+    "Chart.js": "~1.0.2",
+    "angularjs-slider": "~2.10.2"
+  }
+}

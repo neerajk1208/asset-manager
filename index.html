@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+
+<html ng-app="app">
+  <head>
+    <title> Risk Profile </title>
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  
+  <body ng-controller="MainController">
+    <h2 class="md-display-6">Hi. Let me help you manage your assets.</h2>
+    <h2 class="md-display-6">What is your risk profile? (1 - 10)</h2>
+    <br>
+     <md-slider style="margin-left: 5%;margin-right:10%"ng-change="moveChart()"flex md-discrete ng-model="rating" step="1" min="0" max="10" aria-label="rating">
+    </md-slider>
+
+    <h2 class="md-display-6" ng-show="riskEntered">Thanks for sharing. What does your portfolio look like? ($)</h2>
+  <md-content layout-gt-sm="row" layout-padding ng-show="riskEntered" class="portfolio">
+    <div>
+      <md-input-container>
+        <label>Bonds Value</label>
+        <input type="number" ng-model="user.bonds">
+      </md-input-container>
+      <md-input-container>
+        <label>Stocks Value</label>
+        <input type="number" ng-model="user.stocks">
+      </md-input-container>
+      <md-input-container>
+        <label>ETFs Value</label>
+        <input type="number" ng-model="user.etfs">
+      </md-input-container>
+      <md-input-container>
+        <label>Real Estate Value</label>
+        <input type="number" ng-model="user.realEstate">
+      </md-input-container>
+      <md-input-container>
+        <label>Cash Value</label>
+        <input type="number" ng-model="user.cash">
+      </md-input-container>
+    </div>
+    <md-button ng-click="showResults()"> Submit </md-button>
+  </md-content>
+  <h2 ng-show="submissionComplete"class="md-display-6">Based on your selection, here's what your asset allocation should look like.</h2>
+  <div ng-show="submissionComplete">
+    <canvas id="doughnut" class="chart chart-doughnut"
+      chart-data="data" chart-labels="assets" chart-legend="true" width="300" height="100">
+    </canvas> 
+    <md-list ng-show="submissionComplete">
+      <md-subheader class="md-no-sticky">Recommendations for you</md-subheader>
+      <md-list-item class="md-2-line" ng-repeat="insight in insights">
+        <div class="md-list-item-text" layout="column">
+          <h3>{{ insight }}</h3>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+  </div>
+
+  
+
+     <table ng-show="tabular"> 
+      <tr>
+        <th> Risk </th> 
+        <th> Bonds </th>
+        <th> Stocks </th>
+        <th> ETFs </th>
+        <th> Real Estate </th>
+        <th> Cash </th>
+      </tr>
+      <tr ng-repeat="possibility in assetEval"> 
+        <th> {{possibility.risk}}% </th>
+        <th> {{possibility.bonds}}% </th>
+        <th> {{possibility.stocks}}% </th>
+        <th> {{possibility.etfs}}% </th>
+        <th> {{possibility.realEstate}}% </th>
+        <th> {{possibility.cash}}% </th>
+      </tr>
+
+    </table>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"> </script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js" type="text/javascript"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="app.js"> </script>
+    <script src="main.js"> </script>
+  </body>
+
+</html>

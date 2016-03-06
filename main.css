@@ -1,0 +1,35 @@
+.button {
+  border: 1px solid gray;
+  padding: 2px;
+}
+
+.button:hover {
+  background-color: gray;
+}
+
+.chart-container {
+  display: inline-block;
+  width: 60%;
+  height: 40%;
+  border: 1px dotted gray;
+  padding: 2px;
+}
+
+h2 {
+  margin-left: 5%;
+}
+
+.portfolio {
+  margin-left: 5%;
+}
+
+#doughnut {
+  display: inline-block;
+  float: right;
+}
+
+md-list {
+  display: inline-block;
+  float: left;
+  margin-left: 5%;
+}
