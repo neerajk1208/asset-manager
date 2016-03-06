@@ -25,7 +25,9 @@ Based on these inputs, asset-manager will generate the following:
   1. A doughnut chart of how assets should ideally be divided based on input risk profile. 
   2. List of recommendations for how user can adjust current portfolio to ideal asset allocations (to mimic the doughnut chart)
 
+# INSTALLATIONS
 
+Make sure to bower install in order to populate all necessary application dependencies. 
 
 
 
