@@ -3,11 +3,7 @@ A tool using AngularJS to provide asset-allocation recommendations to a user bas
 
 # Languages/Libraries/Frameworks used: 
 
-JavaScript
-AngularJS
-Angular Material
-Angular Charts
-CSS
+JavaScript, AngularJS, Angular Material, Angular Charts, CSS
 
 # User Flow
 
