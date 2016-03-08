@@ -11,13 +11,20 @@
   
   <body ng-controller="MainController">
     <h2 class="md-display-6">Hi. Let me help you manage your assets.</h2>
-    <h2 class="md-display-6">What is your risk profile? (1 - 10)</h2>
+    <h2 class="md-display-6">What is your risk profile? Please choose a number from 1 - 10.</h2>
     <br>
 
     <!-- SLIDER TO INPUT RISK PROFILE -->
     <md-slider style="margin-left: 5%; margin-right:10%" ng-change="moveChart()" flex md-discrete ng-model="rating" step="1" min="0" max="10" aria-label="rating"> </md-slider>
 
-    <h2 class="md-display-6" ng-show="riskEntered">Thanks for sharing. What does your portfolio look like? ($)</h2>
+     <h2 ng-show="riskEntered"class="md-display-6">Based on your risk profile, here is how you should divide your assets!</h2>
+    <div ng-show="riskEntered">
+      <canvas id="doughnut" class="chart chart-doughnut"
+      chart-data="data" chart-labels="assets" chart-legend="true" width="300" height="100">
+      </canvas> 
+    </div>
+
+    <h2 class="md-display-6" ng-show="riskEntered">Thanks for sharing! What does your portfolio look like? Please enter the dollar value allocated for each of the following assets.</h2>
 
     <!-- LIST OF PORTFOLIO INPUTS -->
     <md-content layout-gt-sm="row" layout-padding ng-show="riskEntered" class="portfolio">
@@ -47,12 +54,7 @@
     </md-content>
 
     <!-- ANALYSIS SECTION - INCLUDES DOUGHNUT CHART AND RECOMMENDATIONS -->
-    <h2 ng-show="submissionComplete"class="md-display-6">Based on your selection, here's what your asset allocation should look like.</h2>
-    <div ng-show="submissionComplete">
-      <canvas id="doughnut" class="chart chart-doughnut"
-      chart-data="data" chart-labels="assets" chart-legend="true" width="300" height="100">
-      </canvas> 
-
+    <div>
       <md-list ng-show="submissionComplete">
         <md-subheader class="md-no-sticky">Recommendations for you</md-subheader>
         <md-list-item class="md-2-line" ng-repeat="insight in insights">

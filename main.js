@@ -120,6 +120,7 @@ angular.module('app.main', [])
       //push possibility to assetEval array
       $scope.assetEval.push(possibility);
     }
+    console.log('possibilities', $scope.possibilities)
   }
 
   //populates the $scope.possibilities array
@@ -290,5 +291,21 @@ angular.module('app.main', [])
     $scope.data = $scope.possibilities[$scope.rating];
     $scope.riskEntered = true;
   }
+
+
+  /*
+
+  $scope.possibilities = {
+    1: [20, 20, 20, 20, 20], 
+    2: [10, 10, 10, 10, 60], 
+    3: [0, 0, 0, 0, 0]
+  }
+
+  Set the possiblities = to the results
+  willMount
+  onRender
+    React life cycle (componentWillMount)
+
+  */
 
 });
